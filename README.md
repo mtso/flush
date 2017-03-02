@@ -1,0 +1,2 @@
+# flush
+Another mocha reporter.
