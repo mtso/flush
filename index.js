@@ -22,11 +22,12 @@ var color = Base.color;
  * Wrap POST request around process.exit.
  */
 
+var isMicoUser = (process.env.REPORT_URL || process.env.MICO_URL) && process.env.MICO_SECRET;
 var projectInfo;
 var requestOptions;
 process.originalExit = process.exit;
 process.exit = function(code) {
-  if (!process.env.REPORT_URL && !process.env.MICO_SECRET) {
+  if (!isMicoUser) {
     return process.originalExit(code);
   }
   request(requestOptions, function() {
@@ -61,13 +62,16 @@ function FlushReporter (runner) {
   var width = Base.window.width * 0.75 | 0;
   var n = -1;
   var progress = '';
-  requestOptions = {
-    url: process.env.REPORT_URL,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  };
+
+  if (isMicoUser) {
+    requestOptions = {
+      url: process.env.REPORT_URL || process.env.MICO_URL,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+      }
+    };
+  }
 
   runner.on('start', function () {
     process.stdout.write('\n');
@@ -99,22 +103,24 @@ function FlushReporter (runner) {
       process.stdout.write('\n  ');
     }
     progress += symbols.poop;
-    process.stdout.write(color('fail', symbols.poop));
+    process.stdout.write(color('fail', symbols.poop + ' '));
   });
 
   runner.on('end', function () {
-    var payload = {
-      data: {
-        representation: progress,
-        failedTest: runner.failures,
-        totalTest: runner.total,
-        name: process.env.MICO_USERNAME,
-        org: projectInfo.org,
-        project: projectInfo.project
-      },
-      secret: process.env.MICO_SECRET
-    };
-    requestOptions.body = JSON.stringify(payload);
+    if (isMicoUser) {
+      var payload = {
+        data: {
+          representation: progress,
+          failed: runner.failures,
+          total: runner.total,
+          name: process.env.MICO_USERNAME,
+          org: projectInfo.org,
+          project: projectInfo.project
+        },
+        secret: process.env.MICO_SECRET
+      };
+      requestOptions.body = JSON.stringify(payload);
+    }
 
     console.log();
     self.epilogue();
