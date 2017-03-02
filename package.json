@@ -1,5 +1,5 @@
 {
-  "name": "flush",
+  "name": "flush-reporter",
   "version": "1.0.0",
   "description": "Another mocha reporter.",
   "main": "index.js",
