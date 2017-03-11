@@ -11,7 +11,8 @@
     "url": "git+https://github.com/mtso/flush.git"
   },
   "keywords": [
-    "reporter"
+    "reporter",
+    "mocha"
   ],
   "author": "mtso",
   "license": "ISC",
