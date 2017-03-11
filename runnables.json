@@ -1,0 +1,496 @@
+[
+  {
+    "title": "parses an object",
+    "body": "function () {\n    var jsonString = '{\"a\", \"b\"}';\n    var result = parseJSON(jsonString);\n    var expected = JSON.parse(jsonString);\n    // console.log(result);\n    // console.log(expected);\n    var equality = _.isEqual(result, expected);\n    expect(equality).to.equal(true);\n  }",
+    "async": 0,
+    "sync": true,
+    "_timeout": 2000,
+    "_slow": 75,
+    "_enableTimeouts": true,
+    "timedOut": false,
+    "_trace": {},
+    "_retries": -1,
+    "_currentRetry": 0,
+    "pending": false,
+    "type": "test",
+    "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+    "parent": {
+      "title": "parseJSON",
+      "ctx": {
+        "_runnable": {
+          "title": "should throw an error for invalid stringified JSON",
+          "body": "function () {\n    unparseableStrings.forEach(function(test){\n      var fn = function(){\n        parseJSON(test);\n      }\n      // if you'd prefer, you can write your version of parseJSON \n      // so that it passes this test instead of the one on line 21. \n      // expect(parseJSON(test)).to.equal(undefined);\n      expect(fn).to.throw(SyntaxError);\n    });\n  }",
+          "async": 0,
+          "sync": true,
+          "_timeout": 2000,
+          "_slow": 75,
+          "_enableTimeouts": true,
+          "timedOut": false,
+          "_trace": {},
+          "_retries": -1,
+          "_currentRetry": 0,
+          "pending": false,
+          "type": "test",
+          "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+          "parent": {
+            "$ref": "#/0/parent"
+          },
+          "ctx": {
+            "$ref": "#/0/parent/ctx"
+          },
+          "_events": {},
+          "_eventsCount": 1,
+          "duration": 1,
+          "state": "failed",
+          "err": {
+            "name": "AssertionError",
+            "message": "expected [Function: fn] to throw SyntaxError",
+            "showDiff": false,
+            "actual": null,
+            "expected": null,
+            "stack": "AssertionError: expected [Function: fn] to throw SyntaxError\n    at spec/parseJSONSpec.js:150:26\n    at Array.forEach (native)\n    at Context.<anonymous> (spec/parseJSONSpec.js:143:24)"
+          }
+        },
+        "test": {
+          "$ref": "#/0/parent/ctx/_runnable"
+        }
+      },
+      "suites": [],
+      "tests": [
+        {
+          "title": "parses an array of booleans",
+          "body": "function () {\n    var jsonString = '[true, false,true,  false]';\n    var equality = _.isEqual(parseJSON(jsonString), JSON.parse(jsonString));\n    expect(equality).to.equal(true);\n  }",
+          "async": 0,
+          "sync": true,
+          "_timeout": 2000,
+          "_slow": 75,
+          "_enableTimeouts": true,
+          "timedOut": false,
+          "_trace": {},
+          "_retries": -1,
+          "_currentRetry": 0,
+          "pending": false,
+          "type": "test",
+          "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+          "parent": {
+            "$ref": "#/0/parent"
+          },
+          "ctx": {
+            "$ref": "#/0/parent/ctx"
+          },
+          "_events": {},
+          "_eventsCount": 1,
+          "duration": 2,
+          "state": "passed",
+          "speed": "fast"
+        },
+        {
+          "title": "parses an array of numbers",
+          "body": "function () {\n    var jsonString = '[3, 34.3,1.234,  1e4]';\n    var equality = _.isEqual(parseJSON(jsonString), JSON.parse(jsonString));\n    expect(equality).to.equal(true);\n  }",
+          "async": 0,
+          "sync": true,
+          "_timeout": 2000,
+          "_slow": 75,
+          "_enableTimeouts": true,
+          "timedOut": false,
+          "_trace": {},
+          "_retries": -1,
+          "_currentRetry": 0,
+          "pending": false,
+          "type": "test",
+          "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+          "parent": {
+            "$ref": "#/0/parent"
+          },
+          "ctx": {
+            "$ref": "#/0/parent/ctx"
+          },
+          "_events": {},
+          "_eventsCount": 1,
+          "duration": 0,
+          "state": "passed",
+          "speed": "fast"
+        },
+        {
+          "title": "parses an array of strings",
+          "body": "function () {\n    var jsonString = '[\"3\", \"34.3\",\"1.234\",  \"1e4\"]';\n    var result = parseJSON(jsonString);\n    var expected = JSON.parse(jsonString);\n    var equality = _.isEqual(result, expected);\n    expect(equality).to.equal(true);\n  }",
+          "async": 0,
+          "sync": true,
+          "_timeout": 2000,
+          "_slow": 75,
+          "_enableTimeouts": true,
+          "timedOut": false,
+          "_trace": {},
+          "_retries": -1,
+          "_currentRetry": 0,
+          "pending": false,
+          "type": "test",
+          "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+          "parent": {
+            "$ref": "#/0/parent"
+          },
+          "ctx": {
+            "$ref": "#/0/parent/ctx"
+          },
+          "_events": {},
+          "_eventsCount": 1,
+          "duration": 0,
+          "state": "passed",
+          "speed": "fast"
+        },
+        {
+          "$ref": "#/0"
+        },
+        {
+          "title": "should match the result of calling JSON.parse",
+          "body": "function () {\n    parseableStrings.forEach(function(test){\n      var result = parseJSON(test);\n      // console.log(result);\n      var expected = JSON.parse(test);\n      // console.log(expected);\n      var equality = _.isEqual(result, expected); // why can't we use `===` here?\n      expect(equality).to.equal(true);\n    });\n  }",
+          "async": 0,
+          "sync": true,
+          "_timeout": 2000,
+          "_slow": 75,
+          "_enableTimeouts": true,
+          "timedOut": false,
+          "_trace": {},
+          "_retries": -1,
+          "_currentRetry": 0,
+          "pending": false,
+          "type": "test",
+          "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js",
+          "parent": {
+            "$ref": "#/0/parent"
+          },
+          "ctx": {
+            "$ref": "#/0/parent/ctx"
+          },
+          "_events": {},
+          "_eventsCount": 1,
+          "duration": 5,
+          "state": "failed",
+          "err": {
+            "name": "AssertionError",
+            "message": "expected false to equal true",
+            "showDiff": true,
+            "actual": false,
+            "expected": true,
+            "stack": "AssertionError: expected false to equal true\n    at spec/parseJSONSpec.js:138:27\n    at Array.forEach (native)\n    at Context.<anonymous> (spec/parseJSONSpec.js:132:22)"
+          }
+        },
+        {
+          "$ref": "#/0/parent/ctx/_runnable"
+        }
+      ],
+      "pending": false,
+      "_beforeEach": [],
+      "_beforeAll": [],
+      "_afterEach": [],
+      "_afterAll": [],
+      "root": false,
+      "_timeout": 2000,
+      "_enableTimeouts": true,
+      "_slow": 75,
+      "_retries": -1,
+      "_onlyTests": [],
+      "_onlySuites": [],
+      "delayed": false,
+      "parent": {
+        "title": "",
+        "ctx": {},
+        "suites": [
+          {
+            "$ref": "#/0/parent"
+          },
+          {
+            "title": "parse",
+            "ctx": {},
+            "suites": [
+              {
+                "title": "nextCommaIndex",
+                "ctx": {
+                  "_runnable": {
+                    "title": "finds the index of the next comma",
+                    "body": "function () {\n      commaSeparated.forEach(function(test) {\n        expect(parse.nextCommaIndex(test.in)).to.equal(test.out);\n      });\n    }",
+                    "async": 0,
+                    "sync": true,
+                    "_timeout": 2000,
+                    "_slow": 75,
+                    "_enableTimeouts": true,
+                    "timedOut": false,
+                    "_trace": {},
+                    "_retries": -1,
+                    "_currentRetry": 0,
+                    "pending": false,
+                    "type": "test",
+                    "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js",
+                    "parent": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/0"
+                    },
+                    "ctx": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/0/ctx"
+                    },
+                    "_events": {},
+                    "_eventsCount": 1,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast"
+                  },
+                  "test": {
+                    "$ref": "#/0/parent/parent/suites/1/suites/0/ctx/_runnable"
+                  }
+                },
+                "suites": [],
+                "tests": [
+                  {
+                    "$ref": "#/0/parent/parent/suites/1/suites/0/ctx/_runnable"
+                  }
+                ],
+                "pending": false,
+                "_beforeEach": [],
+                "_beforeAll": [],
+                "_afterEach": [],
+                "_afterAll": [],
+                "root": false,
+                "_timeout": 2000,
+                "_enableTimeouts": true,
+                "_slow": 75,
+                "_retries": -1,
+                "_onlyTests": [],
+                "_onlySuites": [],
+                "delayed": false,
+                "parent": {
+                  "$ref": "#/0/parent/parent/suites/1"
+                },
+                "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js"
+              },
+              {
+                "title": "getBody",
+                "ctx": {
+                  "_runnable": {
+                    "title": "throws a SyntaxError for an invalid string",
+                    "body": "function () {\n      expect(parse.getBody.bind(null, '{\"what\": \"how\" ')).to.throw(SyntaxError);\n      expect(parse.getBody.bind(null, '\"what\": \"how\" }')).to.throw(SyntaxError);\n    }",
+                    "async": 0,
+                    "sync": true,
+                    "_timeout": 2000,
+                    "_slow": 75,
+                    "_enableTimeouts": true,
+                    "timedOut": false,
+                    "_trace": {},
+                    "_retries": -1,
+                    "_currentRetry": 0,
+                    "pending": false,
+                    "type": "test",
+                    "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js",
+                    "parent": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/1"
+                    },
+                    "ctx": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/1/ctx"
+                    },
+                    "_events": {},
+                    "_eventsCount": 1,
+                    "duration": 1,
+                    "state": "passed",
+                    "speed": "fast"
+                  },
+                  "test": {
+                    "$ref": "#/0/parent/parent/suites/1/suites/1/ctx/_runnable"
+                  }
+                },
+                "suites": [],
+                "tests": [
+                  {
+                    "title": "returns the middle of an array or object string",
+                    "body": "function () {\n      bodies.forEach(function(test) {\n        expect(parse.getBody(test.in)).to.equal(test.out);\n      });\n    }",
+                    "async": 0,
+                    "sync": true,
+                    "_timeout": 2000,
+                    "_slow": 75,
+                    "_enableTimeouts": true,
+                    "timedOut": false,
+                    "_trace": {},
+                    "_retries": -1,
+                    "_currentRetry": 0,
+                    "pending": false,
+                    "type": "test",
+                    "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js",
+                    "parent": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/1"
+                    },
+                    "ctx": {
+                      "$ref": "#/0/parent/parent/suites/1/suites/1/ctx"
+                    },
+                    "_events": {},
+                    "_eventsCount": 1,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast"
+                  },
+                  {
+                    "$ref": "#/0/parent/parent/suites/1/suites/1/ctx/_runnable"
+                  }
+                ],
+                "pending": false,
+                "_beforeEach": [],
+                "_beforeAll": [],
+                "_afterEach": [],
+                "_afterAll": [],
+                "root": false,
+                "_timeout": 2000,
+                "_enableTimeouts": true,
+                "_slow": 75,
+                "_retries": -1,
+                "_onlyTests": [],
+                "_onlySuites": [],
+                "delayed": false,
+                "parent": {
+                  "$ref": "#/0/parent/parent/suites/1"
+                },
+                "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js"
+              }
+            ],
+            "tests": [],
+            "pending": false,
+            "_beforeEach": [],
+            "_beforeAll": [],
+            "_afterEach": [],
+            "_afterAll": [],
+            "root": false,
+            "_timeout": 2000,
+            "_enableTimeouts": true,
+            "_slow": 75,
+            "_retries": -1,
+            "_onlyTests": [],
+            "_onlySuites": [],
+            "delayed": false,
+            "parent": {
+              "$ref": "#/0/parent/parent"
+            },
+            "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseSpec.js"
+          },
+          {
+            "title": "stringifyJSON",
+            "ctx": {
+              "_runnable": {
+                "title": "should match JSON.stringify result for unstringifiable values",
+                "body": "function () {\n    unstringifiableValues.forEach(function(obj){\n      var expected = JSON.stringify(obj);\n      var result = stringifyJSON(obj);\n      expect(result).to.equal(expected);\n    });\n  }",
+                "async": 0,
+                "sync": true,
+                "_timeout": 2000,
+                "_slow": 75,
+                "_enableTimeouts": true,
+                "timedOut": false,
+                "_trace": {},
+                "_retries": -1,
+                "_currentRetry": 0,
+                "pending": false,
+                "type": "test",
+                "file": "/Users/matthewtso/git/misc/node-recursion/spec/stringifyJSONSpec.js",
+                "parent": {
+                  "$ref": "#/0/parent/parent/suites/2"
+                },
+                "ctx": {
+                  "$ref": "#/0/parent/parent/suites/2/ctx"
+                },
+                "_events": {},
+                "_eventsCount": 1,
+                "duration": 0,
+                "state": "passed",
+                "speed": "fast"
+              },
+              "test": {
+                "$ref": "#/0/parent/parent/suites/2/ctx/_runnable"
+              }
+            },
+            "suites": [],
+            "tests": [
+              {
+                "title": "should match the result of calling JSON.stringify",
+                "body": "function (){\n    stringifiableObjects.forEach(function(test){\n      var expected = JSON.stringify(test);\n      var result = stringifyJSON(test);\n      expect(result).to.equal(expected);\n    });\n  }",
+                "async": 0,
+                "sync": true,
+                "_timeout": 2000,
+                "_slow": 75,
+                "_enableTimeouts": true,
+                "timedOut": false,
+                "_trace": {},
+                "_retries": -1,
+                "_currentRetry": 0,
+                "pending": false,
+                "type": "test",
+                "file": "/Users/matthewtso/git/misc/node-recursion/spec/stringifyJSONSpec.js",
+                "parent": {
+                  "$ref": "#/0/parent/parent/suites/2"
+                },
+                "ctx": {
+                  "$ref": "#/0/parent/parent/suites/2/ctx"
+                },
+                "_events": {},
+                "_eventsCount": 1,
+                "duration": 1,
+                "state": "passed",
+                "speed": "fast"
+              },
+              {
+                "$ref": "#/0/parent/parent/suites/2/ctx/_runnable"
+              }
+            ],
+            "pending": false,
+            "_beforeEach": [],
+            "_beforeAll": [],
+            "_afterEach": [],
+            "_afterAll": [],
+            "root": false,
+            "_timeout": 2000,
+            "_enableTimeouts": true,
+            "_slow": 75,
+            "_retries": -1,
+            "_onlyTests": [],
+            "_onlySuites": [],
+            "delayed": false,
+            "parent": {
+              "$ref": "#/0/parent/parent"
+            },
+            "file": "/Users/matthewtso/git/misc/node-recursion/spec/stringifyJSONSpec.js"
+          }
+        ],
+        "tests": [],
+        "pending": false,
+        "_beforeEach": [],
+        "_beforeAll": [],
+        "_afterEach": [],
+        "_afterAll": [],
+        "root": true,
+        "_timeout": 2000,
+        "_enableTimeouts": true,
+        "_slow": 75,
+        "_retries": -1,
+        "_onlyTests": [],
+        "_onlySuites": [],
+        "delayed": false,
+        "_events": {
+          "pre-require": [
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "_eventsCount": 1
+      },
+      "file": "/Users/matthewtso/git/misc/node-recursion/spec/parseJSONSpec.js"
+    },
+    "ctx": {
+      "$ref": "#/0/parent/ctx"
+    },
+    "_events": {},
+    "_eventsCount": 1,
+    "duration": 0,
+    "state": "failed",
+    "err": {}
+  },
+  {
+    "$ref": "#/0/parent/tests/4"
+  },
+  {
+    "$ref": "#/0/parent/ctx/_runnable"
+  }
+]
