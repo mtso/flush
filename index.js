@@ -18,6 +18,8 @@ var Base = mocha.reporters.Base;
 var inherits = mocha.utils.inherits;
 var color = Base.color;
 
+var decycle = require('json-decycle').decycle;
+
 /**
  * Wrap POST request around process.exit.
  */
@@ -62,6 +64,7 @@ function FlushReporter (runner) {
   var width = Base.window.width * 0.75 | 0;
   var n = -1;
   var progress = '';
+  var failedInfo = [];
 
   if (isMicoUser) {
     requestOptions = {
@@ -99,6 +102,9 @@ function FlushReporter (runner) {
   });
 
   runner.on('fail', function () {
+    // Store error information.
+    failedInfo.push(runner.currentRunnable);
+
     if (++n % width === 0) {
       process.stdout.write('\n  ');
     }
@@ -106,12 +112,26 @@ function FlushReporter (runner) {
     process.stdout.write(color('fail', symbols.poop + ' '));
   });
 
-  runner.on('end', function () {
+  runner.on('end', function () {    
+
+    // Get stack trace
+    failedInfo = failedInfo.map(function(info) {
+      var title = info.title;
+      var body = info.body;
+      info = JSON.parse(JSON.stringify(failedInfo, decycle()));
+      return {
+        title,
+        body,
+        stack: getStack(info),
+      }
+    });
+
     if (isMicoUser) {
       var payload = {
         data: {
           representation: progress,
           failed: runner.failures,
+          failed_info: failedInfo,
           total: runner.total,
           name: process.env.MICO_USERNAME,
           org: projectInfo.org,
@@ -122,6 +142,9 @@ function FlushReporter (runner) {
       requestOptions.body = JSON.stringify(payload);
     }
 
+    // console.log(failedInfo);
+    // console.log(JSON.stringify(failedInfo, decycle(), 2));
+
     console.log();
     self.epilogue();
   });
@@ -131,3 +154,28 @@ function FlushReporter (runner) {
  * Inherit from `Base.prototype`.
  */
 inherits(FlushReporter, Base);
+
+/**
+ * Utility
+ */
+
+function getStack(obj) {
+  var stack = [];
+  if (Object.prototype.toString.call(obj) === '[object Object]') {
+    var keys = Object.keys(obj);
+    keys.forEach(function(key) {
+      if (key === 'stack') {
+        stack.push(obj[key]);
+      } else {
+        var trace = getStack(obj[key]);
+        stack = stack.concat(trace);
+      }
+    })
+  } else if (Object.prototype.toString.call(obj) === '[object Array]') {
+    obj.forEach(function(element) {
+      var trace = getStack(element);
+      stack = stack.concat(trace);
+    });
+  }
+  return stack;
+}
